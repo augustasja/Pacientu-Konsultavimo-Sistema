@@ -1,0 +1,70 @@
+﻿@model GydytojasGrafikasViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/homepage.css" />
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2"> Gydytojo grafiko sudarymas
+                </header>
+                <article class="card-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <div class="form-group col-md-auto">
+                                Data nuo <input align="center" type="date" asp-for="AppointmentStart" asp- class="form-control" required>
+                            </div>
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            <div class="form-group col-md-auto">
+                                Data iki <input align="right" size="120" type="date" asp-for="AppointmentEnd" asp- class="form-control" required>
+                            </div>
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            <div class="form-group col-md-auto">
+                               Laisvos dienos <input  size="120" type="text" asp-for="Laisvos" asp- class="form-control" >
+                            </div>
+                        </div> <!-- form-row end.// -->
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Patvirtinti  </button>
+                        </div> <!-- form-group// -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </form>
+                </article> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+
+    </div> <!-- row.//-->
+    </div>
+    <!--container end.//-->
+</body>
+</html>
+@section Scripts{
+    <script type="text/javascript">
+        function validate(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+                // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /^[0-9]*$/;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+    </script>
+}

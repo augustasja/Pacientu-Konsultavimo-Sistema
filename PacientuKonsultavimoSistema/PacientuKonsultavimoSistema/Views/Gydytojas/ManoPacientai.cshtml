@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Pacientas>
+
+    @{
+        ViewBag.Title = "Mano pacientai";
+    }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/homepage.css" />
+        <style>
+            .tableFixHead {
+                overflow-y: auto;
+                height: 70vh;
+                width: 100%;
+            }
+
+                .tableFixHead thead th {
+                    position: sticky;
+                    top: 0;
+                }
+
+                .tableFixHead tbody th {
+                    overflow: auto;
+                    height: 100%;
+                    width: 100%;
+                }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                padding: 8px 16px;
+                border: 1px solid #ccc;
+            }
+
+            th {
+                background: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row justify-content-center">
+            <form asp-action="ManoPacientai" method="get" class="form-inline">
+                <div>
+                    Vardas <input type="text" value="" default id="inputSpeciality" name="Vardas" class="form-control">                 
+                    <select id="inputSpeciality" name="vieta" class="form-control">
+                        <option value="" default selected>Miestas</option>
+                        <option>Kaunas</option>
+                        <option>Vilnius</option>
+                        <option>Klaipėda</option>
+                        <option>šiauliai</option>
+                        <option>Alytus</option>
+                        <option>Druskininkai</option>
+                    </select>
+                    <input type="submit" value="Ieškoti" class="btn btn-info" />
+                </div>
+
+                <!-- form-group end.// -->
+
+            </form>
+            <div class="col-md-12">
+                <div class="card">
+                    <header class="card-header">
+                        <h4 class="card-title mt-2">Mano Pacientų Sąrašas</h4>
+                    </header>
+					<div class="tableFixHead">
+						<table class="table table-striped border">
+							<tr class="table-info">
+								<th>Vardas</th>
+								<th>Pavardė</th>
+								<th>El.Paštas</th>
+								<th>Gyvenamoji Vieta</th>
+								<th></th>
+
+							</tr>
+							@foreach (Pacientas i in Model)
+							{
+								<tr>
+									<td>@i.vardas</td>
+									<td>@i.pavarde</td>
+									<td>@i.ePastas</td>
+									<td>@i.gyvenviete</td>
+									<td>
+										<form method="post" asp-action="PacientoLigosIstorija" asp-route-id="@i.asmKodas" asp-controller="Gydytojas">
+											<button type="submit" class="nav-link btn btn-primary">Ligos Istorija</button>
+										</form>
+									</td>
+
+								</tr>
+							}
+
+						</table> <!-- card-body end .// -->
+					</div>
+                </div> <!-- card.// -->
+            </div> <!-- col.//-->
+        </div> <!-- row.//-->
+        <!--container end.//-->
+    </body>
+</html>

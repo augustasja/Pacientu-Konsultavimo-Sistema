@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Gydytojas>
+
+@{
+    ViewBag.Title = "Visi gydytojai";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            height: 70vh;
+            width: 100%;
+        }
+
+            .tableFixHead thead th {
+                position: sticky;
+                top: 0;
+            }
+
+            .tableFixHead tbody th {
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+            }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="row justify-content-center">
+        <form asp-action="ListGydytojai" method="get" class="form-inline">
+            <div>
+
+
+                <select id="inputSpeciality" name="inputSpeciality" class="form-control">
+                    <option value="" default selected>Specialybė</option>
+                    <option>Odontologas</option>
+                    <option>Traumatologas</option>
+                    <option>Psichologas</option>
+                    <option>Šeimos gydytojas</option>
+                </select>
+                <select id="inputSpeciality" name="institution" class="form-control">
+                    <option value="" default selected>Ligoninė</option>
+                    <option>Kauno klinikinė ligoninė</option>
+                    <option>Vilniaus klinikinė ligoninė</option>
+                    <option>Klaipėdos Jūrininkų ligoninė</option>
+                    <option>Respublikinė Šiaulių ligoninė</option>
+                </select>
+                <input type="submit" value="Ieškoti" class="btn btn-info" />
+            </div>
+
+            <!-- form-group end.// -->
+
+        </form>
+        <div>
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Gydytojų sąrašas</h4>
+                </header>
+                <div class="tableFixHead">
+                    <table class="table table-striped border">
+                        <tr class="table-info">
+                            <th>Vardas</th>
+                            <th>Pavardė</th>
+                            <th>Tel. Nr.</th>
+                            <th>El.Paštas</th>
+                            <th>Specialybė</th>
+                            <th>Įstaiga</th>
+                            
+
+                        </tr>
+                        @foreach (Gydytojas i in Model)
+                        {
+                            <tr>
+                                <td>@i.vardas</td>
+                                <td>@i.pavarde</td>
+                                <td>@i.telNr</td>
+                                <td>@i.ePastas</td>
+                                <td>@i.specialybe</td>
+                                <td>@i.istaiga</td>
+                            </tr>
+                        }
+
+                    </table> <!-- card-body end .// -->
+                </div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>

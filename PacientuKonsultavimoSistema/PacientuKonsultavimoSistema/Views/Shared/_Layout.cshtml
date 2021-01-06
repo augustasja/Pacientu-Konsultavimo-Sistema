@@ -1,0 +1,173 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PacientuKonsultavimoSistema</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PacientuKonsultavimoSistema</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+					<ul class="navbar-nav flex-grow-1">
+						@if (!(User.IsInRole("Gydytojas")) && !(User.IsInRole("Admin")) && !(User.IsInRole("Pacientas")))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Gydytojas" asp-action="ListGydytojai">Gydytojų sąrašas</a>
+							</li>
+						}
+
+
+
+
+						@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+						{
+							
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="ListRoles">Peržiūrėti roles</a>
+							</li>
+
+
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="ListGydytojaiAdmin">Gydytojų sąrašas</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="GydytojoRegistracija">Registruoti Gydytoją</a>
+							</li>
+						}
+						@if (signInManager.IsSignedIn(User) && User.IsInRole("Pacientas"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Pacientas" asp-action="ListGydytojaiPac">Gydytojų sąrašas</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Forumas</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Pacientas" asp-action="LigosIstorija">Ligos istorija</a>
+							</li>
+						}
+						@if (signInManager.IsSignedIn(User) && User.IsInRole("Gydytojas"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Gydytojas" asp-action="ManoPacientai">Mano pacientai</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Gydytojas" asp-action="Dienotvarke">Dienotvarkė</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Forumas</a>
+							</li>
+						}
+						<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+							<ul class="navbar-nav">
+								@if (signInManager.IsSignedIn(User))
+								{
+									@if (User.IsInRole("Gydytojas"))
+									{
+										<li class="nav-item dropdown">
+											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Gydytojas: @User.Identity.Name
+											</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+												<a class="dropdown-item" asp-controller="Account" asp-action="EditAccount">Paskyros redagavimas</a>
+												<form method="post" asp-action="Atsijungti" asp-controller="Account">
+													<a class="dropdown-item">
+														<button type="submit" class="nav-link btn btn-link py-0">Atsijungti</button>
+													</a>
+												</form>
+
+											</div>
+										</li>
+									}
+									@if (User.IsInRole("Pacientas"))
+									{
+										<li class="nav-item dropdown">
+											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Pacientas: @User.Identity.Name
+											</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+												<a class="dropdown-item" asp-controller="Account" asp-action="EditAccount">Paskyros redagavimas</a>
+												
+												<a class="dropdown-item" asp-area="" asp-controller="Pacientas" asp-action="Apsilankymai">Apsilankymai</a>
+
+												<form method="post" asp-action="Atsijungti" asp-controller="Account">
+													<a class="dropdown-item">
+														<button type="submit" class="nav-link btn btn-link py-0">Atsijungti</button>
+													</a>
+												</form>
+
+											</div>
+										</li>
+									}
+									@if (User.IsInRole("Admin"))
+									{
+										<li class="nav-item dropdown">
+											<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Adminas: @User.Identity.Name
+											</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+												<a class="dropdown-item" asp-controller="Account" asp-action="EditAccount">Paskyros redagavimas</a>
+												<form method="post" asp-action="Atsijungti" asp-controller="Account">
+													<a class="dropdown-item">
+														<button type="submit" class="nav-link btn btn-link py-0">Atsijungti</button>
+													</a>
+												</form>
+
+											</div>
+										</li>
+									}
+								}
+								else
+								{
+
+									<li class="nav-item justify-content-end">
+										<a class="nav-link text-dark" asp-action="PacientoRegistracija" asp-controller="Account">Registracija</a>
+									</li>
+								}
+
+							</ul>
+						</div>
+						@if (!(signInManager.IsSignedIn(User)))
+						{
+							<li class="nav-item justify-content-end">
+								<a class="nav-link text-dark" asp-action="Prisijungti" asp-controller="Account">Prisijungti</a>
+							</li>
+						}
+
+					</ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - PacientuKonsultavimoSistema - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

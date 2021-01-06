@@ -1,0 +1,16 @@
+﻿
+body {
+}
+
+#greeting {
+    padding: 0;
+    margin: 0;
+    padding-top: 5%;
+    text-align: center;
+}
+.container{
+    text-align:center;
+}
+.col {
+    padding-top: 5%;
+}

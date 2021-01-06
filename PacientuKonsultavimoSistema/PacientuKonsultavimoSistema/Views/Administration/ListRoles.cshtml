@@ -1,0 +1,46 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+	ViewBag.Title = "Visos rolės";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+	@if (Model.Any())
+	{
+	<div class="container" style="text-align: left;">
+		<h1>Visos rolės</h1>
+		<a class="btn btn-primary mb-3" asp-action="CreateRole" asp-controller="administration" style="text-align: left;">Pridėti naują rolę.</a>
+	</div>
+		
+
+		foreach (var role in Model)
+		{
+			<div class="card mb-3" style="text-align: left;">
+				<div class="card-header">
+					Rolės ID: @role.Id
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">@role.Name</h5>
+				</div>
+				<div class="card-footer">
+					<a href="#" class="btn btn-primary">Redaguoti</a>
+					<a href="#" class="btn btn-danger">Šalinti</a>
+				</div>
+
+			</div>
+		}
+	}
+	else
+	{
+
+	}
+</body>
+
+
+	

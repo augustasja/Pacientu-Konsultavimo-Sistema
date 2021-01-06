@@ -1,0 +1,54 @@
+﻿@model LigosIstorijaViewModel
+@{
+    ViewBag.Title = "LigosIstorija";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Pridėti ligos istoriją</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+    <link rel="stylesheet" href="~/css/pacientoRegistracija.css" />
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Ligos istorijos pridėjimas</h4>
+                </header>
+                <article class="card-body">
+                   
+                    <form method="post">
+                        <div>
+                            <div class="form-group">
+                                Liga: <input type="text" asp-for="Liga" asp- class="form-control" required>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+
+                        <div>
+                            Aprašas:
+                        </div>
+                        <div>
+
+                            <div class="form-group">
+                                <input type="text" asp-for="LigosAprasas" class="form-control" required>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Pridėti  </button>
+                        </div> <!-- form-group// -->
+                       
+                    </form>
+                </article> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+
+    </div> <!-- row.//-->
+    </div>
+    <!--container end.//-->
+</body>
+</html>

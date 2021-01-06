@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Grafikas>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            height: 70vh;
+        }
+
+            .tableFixHead thead th {
+                position: sticky;
+                top: 0;
+            }
+            .tableFixHead tbody th {
+                
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+            }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <form asp-action="ListGydGrafikas" method="get" class="form-inline">
+            <div>
+
+
+                <input type="date" name="data"  value="" class="form-control">
+
+                <input type="submit" value="Ieškoti" class="btn btn-info" />
+            </div>
+
+            <!-- form-group end.// -->
+
+        </form>
+        <div class="col-md-12">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Laisvi laikai sąrašas</h4>
+                </header>
+
+				<div class="tableFixHead">
+					<table>
+						<thead>
+							<tr class="table-info">
+								<th>
+									<a asp-action="ListGydGrafikas" asp-route-sortOrder="@ViewBag.SortParam">Laisva vieta</a>
+								</th>
+								<th>Registracija</th>
+							</tr>
+						</thead>
+						@if (Model != null)
+						{
+							foreach (Grafikas i in Model)
+							{
+								<tbody>
+									<tr>
+										<td>@i.Start - @i.End</td>
+										<td align="center">
+											<form method="post" asp-action="Registracija" asp-route-id="@i.Id" asp-controller="Pacientas">
+
+												<button type="submit" class="nav-link btn btn-primary"
+														onclick="return confirm('Ar tikrai norite registruotis?')">
+													Registruotis
+												</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							}
+						}
+
+					</table> <!-- card-body end .// -->
+				</div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>

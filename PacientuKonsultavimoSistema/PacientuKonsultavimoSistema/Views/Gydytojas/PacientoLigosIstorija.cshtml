@@ -1,0 +1,79 @@
+﻿@model IEnumerable<LigosIstorija> 
+
+@{
+    ViewBag.Title = "Mano grafikas";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            height: 60vh;
+            width: 100%;
+        }
+            .tableFixHead thead th {
+                position: sticky;
+                top: 0;
+            }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <form asp-action="PacientoLigosIstorija" method="get" class="form-inline">
+            <div>
+                <input type="date" name="data" value="" class="form-control">
+                <input type="submit" value="Ieškoti" class="btn btn-info" />
+            </div>
+        </form>
+        <div class="col-md-12">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Paciento Ligos Istorija</h4>
+                </header>
+                <table class="table table-striped border">
+                    <tr class="table-info">
+                    <tr><th style="background-color:#CEECF5">Vardas: </th><th>@ViewBag.Vardas</th></tr>
+                    <tr><th style="background-color:#CEECF5">Pavardė: </th><th>@ViewBag.Pavarde</th></tr>
+                    <tr><th style="background-color:#CEECF5">Gimimo metai: </th><th>@ViewBag.Metai</th></tr>
+                    <tr><th style="background-color:#CEECF5">Lytis: </th><th>@ViewBag.Lytis</th></tr>
+                    <tr>
+                        <form method="post" asp-action="LigosIstorija" asp-route-id="@ViewBag.Id2" asp-controller="Gydytojas">
+                            <button type="submit" class="nav-link btn btn-primary">Pridėti</button>
+                        </form>
+                    </tr>
+                </table>
+                <div class="tableFixHead">
+                    <table class="table table-striped border">
+                        </tr>
+                        @foreach (LigosIstorija i in Model)
+                        {
+                            <tr>
+                            <tr><th style="background-color:#CEECF5">Gydytojo vardas: </th><th>@i.GydVardas</th></tr>
+                            <tr><th style="background-color:#CEECF5">Gydytojo pavardė: </th><th>@i.GydPavarde</th></tr>
+                            <tr><th style="background-color:#CEECF5">Data: </th><th>@i.Data</th></tr>
+                            <tr><th style="background-color:#CEECF5">Liga: </th><th>@i.Liga</th></tr>
+                            <tr><th colspan="2" style="background-color:#CEECF5">Aprašymas:</th></tr">
+                            <tr><th colspan="2">@i.LigosAprasas</th></tr>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>

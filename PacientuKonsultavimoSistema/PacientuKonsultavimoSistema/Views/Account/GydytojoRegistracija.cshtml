@@ -1,0 +1,118 @@
+﻿@model GydytojasRegisterViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gydytojų registracija</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+    <link rel="stylesheet" href="~/css/gydytojoRegistracija.css" />
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Gydytojo registracija </h4>
+                </header>
+                <article class="card-body">
+                    <form method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="text" asp-for="firstName" class="form-control" placeholder="Vardas" required>
+                            </div> <!-- form-group end.// -->
+                            <div class="form-group col-md-6">
+                                <input type="text" asp-for="lastName" class="form-control" placeholder="Pavardė" required>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            <input type="email" asp-for="email" class="form-control" placeholder="El. paštas" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="date" asp-for="year" class="form-control" required />
+                            </div>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <input type="text" maxlength="11" asp-for="idCode" class="form-control" onkeypress="validate(event)" placeholder="Asmens kodas" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type="tel" asp-for="number" maxlength="9" class="form-control"  onkeypress="validate(event)" placeholder="Telefono nr.">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <select id="inputSpeciality" asp-for="sex" class="form-control" required>
+                                    <option value="" default selected>Lytis</option>
+                                    <option>Vyras</option>
+                                    <option>Moteris</option>
+                                    <option>Kita</option>
+                                </select>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-group end.// -->
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <select id="inputSpeciality" asp-for="speciality" class="form-control" required>
+                                    <option value="" default selected>Specialybė</option>
+                                    <option>Odontologas</option>
+                                    <option>Traumatologas</option>
+                                    <option>Psichologas</option>
+                                    <option>Šeimos gydytojas</option>
+                                </select>
+                            </div> <!-- form-group end.// -->
+                            <div class="form-group col-md-4">
+                                <select id="inputSpeciality" asp-for="institution" class="form-control" required>
+                                    <option value="" default selected>Ligoninė</option>
+                                    <option>Kauno klinikinė ligoninė</option>
+                                    <option>Vilniaus klinikinė ligoninė</option>
+                                    <option>Klaipėdos Jūrininkų ligoninė</option>
+                                    <option>Respublikinė Šiaulių ligoninė</option>
+                                </select>
+                            </div> <!-- form-group end.// -->
+                            <div class="form-group col-md-4">
+                                <select id="inputSpeciality" asp-for="country" class="form-control" required>
+                                    <option value="" default selected>Šalis</option>
+                                    <option>Lietuva</option>
+                                </select>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row.// -->
+                        <div class="form-group">
+                            <input class="form-control" asp-for="password" type="password" placeholder="Slaptažodis" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <input class="form-control" asp-for="confirmPassword" type="password" placeholder="Pakartoti slaptažodį" required>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Registruotis  </button>
+                        </div> <!-- form-group// -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </form>
+                </article> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>
+@section Scripts{
+    <script type="text/javascript">
+        function validate(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+                // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /^[0-9]*$/;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+    </script>
+}

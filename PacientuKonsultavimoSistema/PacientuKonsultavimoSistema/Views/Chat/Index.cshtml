@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Message>
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
+
+@{
+	ViewData["Title"] = "Pokalbiu kambarys";
+	var userName = User.Identity.Name;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/homepage.css" />
+
+	<style>
+		.tableFixHead {
+			overflow-y: auto;
+			width: 100%;
+			height: 60vh;
+		}
+
+			.tableFixHead thead th {
+				position: sticky;
+				top: 0;
+			}
+
+			.tableFixHead tbody th {
+				overflow: auto;
+				height: 100%;
+				width: 100%;
+			}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			background-color: #D8F0DA;
+			min-width: 100%;
+			position: relative;
+			opacity: 0.97;
+			background: transparent;
+		}
+
+		th,
+		td {
+
+		}
+
+
+		p{
+			line-height: 1;
+
+		}
+	</style>
+</head>
+<body>
+
+	<div class="w-auto">
+		<div class="card">
+			<header class="card-header">
+				<h4>Pokalbių kambarys</h4>
+			</header>
+		</div>
+		
+			
+		<div id="chat" class="tableFixHead">
+			@if (Model != null)
+			{
+			<table>
+
+				@foreach (var message in Model.OrderBy(m => m.When))
+				{
+
+					if (userName == message.UserName)
+					{
+
+				<tr><td colspan="2" style="color:darkgrey; text-align:center">@message.When.ToString()</td></tr>
+
+						<tr>
+
+							<th class="sender" style="width:100px; text-align:left">
+								<p style="color:darkgrey">@message.UserName</p>
+								<p style="		border: 3px;
+		border-radius: 15px 50px 30px 5px;
+		border-style: solid;
+		border-color: aqua;
+		background-color: aqua;
+		padding: 20px
+">@message.Text</p>
+								
+							</th>
+							<th style="width:100px">
+
+							</th>
+
+
+						</tr>
+
+
+					}
+					else
+					{
+
+						<tr><td colspan="2" style="color:darkgrey; text-align:center">@message.When.ToString()</td></tr>
+
+						<tr>
+							<th style="width:100px">
+
+							</th>
+							<th class="sender" style="width:100px;text-align:right">
+								<p style="color:darkgrey">@message.UserName</p>
+								<p style="border:3px; border-radius: 50px 15px 5px 30px; border-style:solid; border-color:aqua; background-color:aqua; padding: 20px">@message.Text</p>
+
+							</th>
+
+
+
+						</tr>
+
+
+					}
+
+
+				}
+			</table>
+				}
+
+		</div>
+				
+				<div>
+
+					<form asp-controller="Chat" asp-action="Create"
+						  data-ajax-begin="clearInputField" data-ajax-complete=""
+						  data-ajax-failure="alert('FAIL')" data-ajax-success="sendMessage"
+						  data-ajax="true" data-ajax-method="POST">
+						<div class="form-group">
+							<input name="Text" class="form-control" id="messageText" placeholder="Įveskite žinutę..." />
+						</div>
+						<div class="form-group">
+							<input type="submit" onclick="refresh()" value="Siųsti" id="submitButton" class="btn btn-primary btn-block" />
+						</div>
+						<input type="hidden" value="@userName" name="username" />
+					</form>
+
+				</div>
+
+			
+		</div>
+	
+</body>
+</html>
+<script>
+	const userName = "@ViewBag.CurrentUserName";
+	const userRole = "@ViewBag.CurrentRole";
+</script>
+
+@section scripts {
+
+	<script src="~/signalr/signalr.min.js"></script>
+	<script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/js/chat.js"></script>
+	<script src="~/js/signalrReqHandler.js"></script>
+	
+	<script>
+		function refresh() {
+			setTimeout(laikas, 2000);
+		}
+
+		function laikas() {
+			location.reload();
+		}
+	</script>
+
+}

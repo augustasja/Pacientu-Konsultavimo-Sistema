@@ -1,0 +1,23 @@
+﻿@model EditViewModel
+@{
+	ViewBag.Title = "Redaguota sėkmingai";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/homepage.css" />
+</head>
+<body>
+	<div class="row justify-content-center">
+		<div class="alert alert-success" role="alert">
+			<h4 class="alert-heading">Paskyra sėkmingai redaguota</h4>
+			<a type="submit" class="btn btn-primary btn-block" asp-action="Prisijungti" asp-controller="Account"> Prisijungti </a>
+		</div>
+	</div> <!-- row.//-->
+	<!--container end.//-->
+</body>
+</html>

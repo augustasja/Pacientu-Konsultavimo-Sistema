@@ -1,0 +1,52 @@
+﻿@model PrisijungtiViewModel
+
+@{
+    ViewBag.Title = "Prisijungimas";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Prisijungti </h4>
+                </header>
+                <article class="card-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="email" asp-for="email" class="form-control" placeholder="El. paštas" required>
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <input class="form-control" asp-for="password" type="password" placeholder="Slaptažodis" required>
+                        </div> <!-- form-group end.// -->
+
+                        <div class="form-row col-md-6">
+                            <div class="custom-checkbox">
+                                <label asp-for="prisimintiMane">
+                                    <input asp-for="prisimintiMane" />
+                                    @Html.DisplayNameFor(m => m.prisimintiMane)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Prisijungti  </button>
+                        </div> <!-- form-group// -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </form>
+                </article> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>

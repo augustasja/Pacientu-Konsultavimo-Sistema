@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Grafikas> 
+
+@{
+	ViewData["Title"] = "Apsilankymai";
+    ViewData["Controller"] = "Pacientas";
+    ViewData["Action"] = "Apsilankymai";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+</head>
+<body>
+    <div class="row justify-content-center">
+        <form asp-action="Apsilankymai" method="get" class="form-inline">
+            <div>
+                <input type="date" name="data" value="" class="form-control">
+                <input type="submit" value="Ieškoti" class="btn btn-info" />
+            </div>
+        </form>
+        <div class="col-md-12">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Mano Apsilankymai</h4>
+                </header>
+                <table class="table table-striped border">
+                    <tr class="table-info">
+                        <th>Gydytojo vardas</th>
+                        <th>Gydytojo pavardė</th>
+                        <th>
+                            <a asp-action="Apsilankymai" asp-route-sortOrder="@ViewBag.SortParam">Apsilankymo data</a>
+                        </th>
+                    </tr>
+                    @foreach (Grafikas i in Model)
+                    {
+                        <tr>
+                            <td>@i.GydVardas</td>
+                            <td>@i.GydPavarde</td>
+                            <td>@i.Start</td>
+                        </tr>
+                    }
+
+                </table> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>

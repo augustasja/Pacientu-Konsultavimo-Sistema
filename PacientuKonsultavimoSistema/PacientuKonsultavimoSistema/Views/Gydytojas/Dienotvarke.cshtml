@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Grafikas> 
+
+@{
+    ViewBag.Title = "Mano grafikas";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/homepage.css" />
+    <style>
+        .tableFixHead {
+            overflow-y: auto;
+            height: 70vh;
+            width: 100%;
+        }
+
+            .tableFixHead thead th {
+                position: sticky;
+                top: 0;
+            }
+
+            .tableFixHead tbody th {
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+            }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <form asp-action="Dienotvarke" method="get" class="form-inline">
+            <div>
+                <input type="date" name="data" value="" class="form-control">
+                <input type="submit" value="Ieškoti" class="btn btn-info" />
+            </div>
+        </form>
+        <div class="col-md-12">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Dienotvarkė</h4>
+                </header>
+                <div class="tableFixHead">
+                    <table>
+                        <thead>
+                            <tr class="table-info">
+                                <th>Paciento vardas</th>
+                                <th>Paciento pavardė</th>
+                                <th>
+                                    <a asp-action="Dienotvarke" asp-route-sortOrder="@ViewBag.SortParam">Rezervacijos data</a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Grafikas i in Model)
+                            {
+
+                                <tr>
+                                    <td>@i.PacVardas</td>
+                                    <td>@i.PacPavarde</td>
+                                    <td>@i.Start -> @i.End</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table> <!-- card-body end .// -->
+                </div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+    <!--container end.//-->
+</body>
+</html>
